@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat del Equipo</title>
+    <!-- Se incluye una fuente moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f3f4f6;
+            --chat-bg: #ffffff;
+            --primary-color: #3b82f6;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --bubble-left: #e5e7eb;
+            --bubble-right: #dbeafe;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .chat-container {
+            background-color: var(--chat-bg);
+            width: 100%;
+            max-width: 600px;
+            height: 80vh;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto; /* Permite el scroll */
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Oculta la barra de scroll en navegadores webkit para un look más limpio, pero mantiene la funcionalidad */
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        .chat-messages::-webkit-scrollbar-thumb {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+
+        .message {
+            display: flex;
+            gap: 12px;
+            max-width: 85%;
+        }
+
+        .message.left {
+            align-self: flex-start;
+        }
+
+        /* Se simula que algunas respuestas vienen del lado derecho (usuario actual) */
+        .message.right {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .message-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .message.right .message-content {
+            align-items: flex-end;
+        }
+
+        .user-name {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-left: 4px;
+        }
+        
+        .message.right .user-name {
+            margin-left: 0;
+            margin-right: 4px;
+        }
+
+        .bubble {
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .message.left .bubble {
+            background-color: var(--bubble-left);
+            border-top-left-radius: 4px;
+        }
+
+        .message.right .bubble {
+            background-color: var(--bubble-right);
+            color: #1e3a8a;
+            border-top-right-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="chat-container">
+        <header class="chat-header">
+            Sala de Git (Práctica)
+        </header>
+        
+        <main class="chat-messages">
+            <!-- Burbuja 1 -->
+            <div class="message left">
+                <div class="avatar">🐶</div>
+                <div class="message-content">
+                    <span class="user-name">
+                        <!-- NOMBRE_AQUI -->
+                        Usuario_Perro
+                    </span>
+                    <div class="bubble">
+                        <!-- MENSAJE_AQUI -->
+                        ¡Hola! Probando el repositorio.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burbuja 2 -->
+            <div class="message right">
+                <div class="avatar">🐱</div>
+                <div class="message-content">
+                    <span class="user-name">
+                        <!-- NOMBRE_AQUI -->
+                        Usuario_Gato
+                    </span>
+                    <div class="bubble">
+                        <!-- MENSAJE_AQUI -->
+                        Listo para aprender Git.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burbuja 3 -->
+            <div class="message left">
+                <div class="avatar">🦊</div>
+                <div class="message-content">
+                    <span class="user-name">
+                        <!-- NOMBRE_AQUI -->
+                        Usuario_Zorro
+                    </span>
+                    <div class="bubble">
+                        <!-- MENSAJE_AQUI -->
+                        Acabo de clonar el repositorio, ¿qué sigue?
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burbuja 4 -->
+            <div class="message left">
+                <div class="avatar">🐼</div>
+                <div class="message-content">
+                    <span class="user-name">
+                        <!-- NOMBRE_AQUI -->
+                        Usuario_Panda
+                    </span>
+                    <div class="bubble">
+                        <!-- MENSAJE_AQUI -->
+                        No olvides crear tu rama con git checkout -b
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burbuja 5 -->
+            <div class="message right">
+                <div class="avatar">🦁</div>
+                <div class="message-content">
+                    <span class="user-name">
+                        <!-- NOMBRE_AQUI -->
+                        Usuario_Leon
+                    </span>
+                    <div class="bubble">
+                        <!-- MENSAJE_AQUI -->
+                        Entendido, haciendo los cambios.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burbuja 6 -->
+            <div class="message left">
+                <div class="avatar">🐸</div>
+                <div class="message-content">
+                    <span class="user-name">
+                        <!-- NOMBRE_AQUI -->
+                        Usuario_Rana
+                    </span>
+                    <div class="bubble">
+                        <!-- MENSAJE_AQUI -->
+                        ¿Alguien sabe por qué mi git status sale en rojo?
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burbuja 7 -->
+            <div class="message right">
+                <div class="avatar">🐵</div>
+                <div class="message-content">
+                    <span class="user-name">
+                        <!-- NOMBRE_AQUI -->
+                        Usuario_Mono
+                    </span>
+                    <div class="bubble">
+                        <!-- MENSAJE_AQUI -->
+                        Significa que tienes archivos modificados pero aún no están en el staging. Usa git add.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burbuja 8 -->
+            <div class="message left">
+                <div class="avatar">🐧</div>
+                <div class="message-content">
+                    <span class="user-name">
+                        <!-- NOMBRE_AQUI -->
+                        Usuario_Pinguino
+                    </span>
+                    <div class="bubble">
+                        <!-- MENSAJE_AQUI -->
+                        Ah, gracias. Ya hice el add y el commit.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burbuja 9 -->
+            <div class="message left">
+                <div class="avatar">🦉</div>
+                <div class="message-content">
+                    <span class="user-name">
+                        <!-- NOMBRE_AQUI -->
+                        Usuario_Buho
+                    </span>
+                    <div class="bubble">
+                        <!-- MENSAJE_AQUI -->
+                        Voy a empujar mis cambios ahora con git push.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burbuja 10 -->
+            <div class="message right">
+                <div class="avatar">🦄</div>
+                <div class="message-content">
+                    <span class="user-name">
+                        <!-- NOMBRE_AQUI -->
+                        Usuario_Unicornio
+                    </span>
+                    <div class="bubble">
+                        <!-- MENSAJE_AQUI -->
+                        ¡Genial! Yo ya abrí mi Pull Request.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burbuja 11 -->
+            <div class="message left">
+                <div class="avatar">🐙</div>
+                <div class="message-content">
+                    <span class="user-name">
+                        <!-- NOMBRE_AQUI -->
+                        Usuario_Pulpo
+                    </span>
+                    <div class="bubble">
+                        <!-- MENSAJE_AQUI -->
+                        Me toca revisar el código de la rama principal.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burbuja 12 -->
+            <div class="message right">
+                <div class="avatar">🐢</div>
+                <div class="message-content">
+                    <span class="user-name">
+                        <!-- NOMBRE_AQUI -->
+                        Usuario_Tortuga
+                    </span>
+                    <div class="bubble">
+                        <!-- MENSAJE_AQUI -->
+                        Tomate tu tiempo, sin prisa.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burbuja 13 -->
+            <div class="message left">
+                <div class="avatar">🦋</div>
+                <div class="message-content">
+                    <span class="user-name">
+                        <!-- NOMBRE_AQUI -->
+                        Usuario_Mariposa
+                    </span>
+                    <div class="bubble">
+                        <!-- MENSAJE_AQUI -->
+                        Esto de los worktrees suena interesante.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burbuja 14 -->
+            <div class="message left">
+                <div class="avatar">🦖</div>
+                <div class="message-content">
+                    <span class="user-name">
+                        <!-- NOMBRE_AQUI -->
+                        Usuario_Rex
+                    </span>
+                    <div class="bubble">
+                        <!-- MENSAJE_AQUI -->
+                        Sí, poder tener varias ramas abiertas al mismo tiempo es muy útil.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burbuja 15 -->
+            <div class="message right">
+                <div class="avatar">🐳</div>
+                <div class="message-content">
+                    <span class="user-name">
+                        <!-- NOMBRE_AQUI -->
+                        Usuario_Ballena
+                    </span>
+                    <div class="bubble">
+                        <!-- MENSAJE_AQUI -->
+                        Especialmente para no interrumpir el flujo de trabajo principal.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burbuja 16 -->
+            <div class="message left">
+                <div class="avatar">🦔</div>
+                <div class="message-content">
+                    <span class="user-name">
+                        <!-- NOMBRE_AQUI -->
+                        Usuario_Erizo
+                    </span>
+                    <div class="bubble">
+                        <!-- MENSAJE_AQUI -->
+                        ¡Me encanta cómo va quedando la interfaz!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burbuja 17 -->
+            <div class="message right">
+                <div class="avatar">🦥</div>
+                <div class="message-content">
+                    <span class="user-name">
+                        <!-- NOMBRE_AQUI -->
+                        Usuario_Perezoso
+                    </span>
+                    <div class="bubble">
+                        <!-- MENSAJE_AQUI -->
+                        Solo nos faltan unos cuantos mensajes para llenar el scroll.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burbuja 18 -->
+            <div class="message left">
+                <div class="avatar">🦦</div>
+                <div class="message-content">
+                    <span class="user-name">
+                        <!-- NOMBRE_AQUI -->
+                        Usuario_Nutria
+                    </span>
+                    <div class="bubble">
+                        <!-- MENSAJE_AQUI -->
+                        Casi terminamos el ejercicio.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burbuja 19 -->
+            <div class="message right">
+                <div class="avatar">🦩</div>
+                <div class="message-content">
+                    <span class="user-name">
+                        <!-- NOMBRE_AQUI -->
+                        Usuario_Flamenco
+                    </span>
+                    <div class="bubble">
+                        <!-- MENSAJE_AQUI -->
+                        ¿Quién hace el último commit?
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burbuja 20 -->
+            <div class="message left">
+                <div class="avatar">🦝</div>
+                <div class="message-content">
+                    <span class="user-name">
+                        <!-- NOMBRE_AQUI -->
+                        Usuario_Mapache
+                    </span>
+                    <div class="bubble">
+                        <!-- MENSAJE_AQUI -->
+                        ¡Yo me encargo! ¡Nos vemos en el próximo PR!
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>
